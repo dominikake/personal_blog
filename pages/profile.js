@@ -3,15 +3,17 @@ import {
     EditableInput,
     EditableTextarea,
     EditablePreview,
-  } from '@chakra-ui/react'
+} from '@chakra-ui/react'
 
-const ProfileEditable = () => { 
+const ProfileEditable = () => {
     return (
         <>
-        <Editable defaultValue='Drop a line.'>
-  <EditablePreview />
-  <EditableInput />
-        </Editable>
+            <Editable defaultValue='Drop a line.'>
+                <EditablePreview />
+                <EditableInput />
+            </Editable>
         </>
     )
 }
+
+export default ProfileEditable;
