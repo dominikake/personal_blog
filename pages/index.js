@@ -1,6 +1,5 @@
-//import React from 'react';
 import Head from 'next/head';
-import Layout, {siteTitle} from '../components/Layout'; // Adjust the path as needed
+import Layout, { siteTitle, intro, otherText } from '../components/Layout'; // Adjust the path as needed
 import utilStyles from '../styles/Home.module.css';
 import { getSortedPostsData } from '../lib/posts';
 import Link from 'next/link';
@@ -8,8 +7,6 @@ import Link from 'next/link';
 <h1 className="title">
   Read <Link href="/posts/first-post">this page!</Link>
 </h1>
-
-
 
 
 export async function getStaticProps() {
@@ -24,16 +21,16 @@ export async function getStaticProps() {
 export default function Home({ allPostsData }) {
   return (
     <Layout home>
-       <Head>
+      <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>Just learnng as I go.</p>
+        <p>{intro}</p>
         <p>
-          Let's go!
+      ({otherText})
         </p>
       </section>
-      <h1>Hi 
+      <h1>Hi
         <Link href="/posts/first-post">Hello</Link>
       </h1>
 
@@ -53,8 +50,5 @@ export default function Home({ allPostsData }) {
         </ul>
       </section>
     </Layout>
-    
-    
-    
   );
 } 

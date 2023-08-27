@@ -5,6 +5,8 @@ import utilStyles from '../styles/Home.module.css';
 import Link from 'next/link';
 
 const name = 'Jan Go';
+const intro = 'Learning as I go.'
+const otherText = "Let's Go"
 export const siteTitle = 'Learning as we go!';
 
 export default function Layout({ children, home }) {
