@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import Layout, { siteTitle, intro, otherText } from '../components/Layout'; // Adjust the path as needed
+import Layout, { siteTitle } from '../components/Layout'; 
+
 import utilStyles from '../styles/Home.module.css';
 import { getSortedPostsData } from '../lib/posts';
 import Link from 'next/link';
@@ -7,6 +8,9 @@ import Link from 'next/link';
 <h1 className="title">
   Read <Link href="/posts/first-post">this page!</Link>
 </h1>
+
+const intro = 'Learning as I go.'
+const otherText = "Let's Go"
 
 
 export async function getStaticProps() {
