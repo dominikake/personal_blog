@@ -9,6 +9,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 export default function WithBackgroundImage() {
   return (
@@ -32,7 +33,7 @@ export default function WithBackgroundImage() {
             color={"white"}
             fontWeight={700}
             lineHeight={1.2}
-            fontSize={useBreakpointValue({ base: "4xl", md: "5xl" })}
+            fontSize={useBreakpointValue({ base: "5xl", md: "6xl" })}
           >
             Embark on a Tech Journey: Thoughts, Discoveries, Unveilings
           </Text>
@@ -42,10 +43,10 @@ export default function WithBackgroundImage() {
           <Stack direction={"row"}>
             <Link href="https://github.com/dominikake">
               <Button
-                bg={"blue.400"}
+                rightIcon={<ArrowForwardIcon />}
+                colorScheme="teal"
                 rounded={"full"}
                 color={"white"}
-                _hover={{ bg: "blue.500" }}
               >
                 Visit GitHub
               </Button>

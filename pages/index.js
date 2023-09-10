@@ -1,5 +1,6 @@
 import Head from "next/head";
 import WithBackgroundImage from "@/components/hero";
+import FooterSmallCentered from "@/components/footer";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <WithBackgroundImage />
+      <FooterSmallCentered />
     </>
   );
 }
