@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>Jan Go Site</title>
         <meta
           name="description"
           content="Thoughts, Discoveries, Tech Unveilede"
