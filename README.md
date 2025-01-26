@@ -1,13 +1,16 @@
-This project is built with [Next.js](https://nextjs.org/) and component libraries using [Chakra UI](https://chakra-ui.com/).
+# About
+
+This personal site is built with [Next.js](https://nextjs.org/).
 
 The site is live and deployed on [Vercel](https://vercel.com/).
 
-## About
-
-This blog is all about sharing my thoughts, discoveries, and journey into the world of technology.
-
 ## Technologies Used
 
+- [Bun](https://bun.sh/)
 - [Next.js](https://nextjs.org/)
-- [Chakra UI](https://chakra-ui.com/)
 - [Vercel](https://vercel.com/)
+
+## Changelog
+
+- npm -> bun
+- page router -> app router

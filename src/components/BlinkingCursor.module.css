@@ -1,0 +1,18 @@
+.cursorContainer {
+    display: inline-block;
+    width: 0.5em; /* Adjust as needed to match the width of the underscore */
+    overflow: hidden; /* Ensures the container doesn't grow when the cursor is visible */
+  }
+  
+  .cursor {
+    font-weight: 100;
+    animation: blink 1.06s steps(2, start) infinite;
+  }
+  
+  @keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+  
+  

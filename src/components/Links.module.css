@@ -1,0 +1,16 @@
+  .links {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .links a {
+    color: #e0def4; /* Pine color */
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
+  
+  .links a:hover {
+    text-decoration: underline;
+  }
+  
+  
