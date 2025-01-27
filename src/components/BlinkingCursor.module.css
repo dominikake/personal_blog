@@ -1,12 +1,10 @@
-.cursorContainer {
-    display: inline-block;
-    width: 0.5em; /* Adjust as needed to match the width of the underscore */
-    overflow: hidden; /* Ensures the container doesn't grow when the cursor is visible */
-  }
-  
-  .cursor {
-    font-weight: 100;
-    animation: blink 1.06s steps(2, start) infinite;
+.cursor {
+    font-weight: 200;
+    animation: blink 1.6s steps(2, start) infinite;
+    display: inline-block; /* Ensure the cursor occupies consistent space */
+    width: 0.5em; /* Match the width of the underscore */
+    text-align: left; /* Align the cursor to the left */
+    color: #e0def4; /* Pine color */
   }
   
   @keyframes blink {
@@ -14,5 +12,3 @@
       visibility: hidden;
     }
   }
-  
-  
