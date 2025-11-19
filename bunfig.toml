@@ -1,2 +1,2 @@
 [install.security]
-scanner = "bun-osv-scanner"
+# scanner = "bun-osv-scanner"
