@@ -1,3 +1,4 @@
+import Link from "next/link"
 import styles from "./Links.module.css"
 
 export default function Links() {
@@ -9,7 +10,7 @@ export default function Links() {
       <a href="https://github.com/dominikake" target="_blank" rel="noopener noreferrer">
         github
       </a>
-      <a href="/blog">blog</a>
+      <Link href="/blog">blog</Link>
     </div>
   )
 }
