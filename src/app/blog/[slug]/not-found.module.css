@@ -1,0 +1,47 @@
+.main {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--text);
+  padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  max-width: 600px;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin: 0 0 1rem 0;
+  color: var(--pine);
+}
+
+.message {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.link {
+  color: var(--pine);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--pine);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.link:hover {
+  background-color: var(--pine);
+  color: var(--background);
+}
