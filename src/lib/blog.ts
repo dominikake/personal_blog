@@ -61,9 +61,10 @@ export function getAllBlogPosts(): BlogPost[] {
   const allPostsData = fileNames
     .filter(fileName => fileName.endsWith('.md'))
     .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, '')
+      // Sanitize slug: allow only URL-safe characters (alphanumeric, dash, underscore)
+      const slugRaw = fileName.replace(/\.md$/, '')
+      const slug = slugRaw.replace(/[^a-zA-Z0-9\-_]/g, '')
       const fullPath = path.join(postsDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data, content } = parseFrontmatter(fileContents)
 
       return {
@@ -86,7 +87,9 @@ export function getAllBlogPosts(): BlogPost[] {
 
 export function getBlogPostBySlug(slug: string): BlogPost | null {
   try {
-    const fullPath = path.join(postsDirectory, `${slug}.md`)
+    // Sanitize slug before use
+    const safeSlug = slug.replace(/[^a-zA-Z0-9\-_]/g, '')
+    const fullPath = path.join(postsDirectory, `${safeSlug}.md`)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = parseFrontmatter(fileContents)
 
