@@ -5,7 +5,7 @@ import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/blog'
 import styles from './page.module.css'
 
 interface BlogPostPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
