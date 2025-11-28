@@ -65,6 +65,7 @@ export function getAllBlogPosts(): BlogPost[] {
       const slugRaw = fileName.replace(/\.md$/, '')
       const slug = slugRaw.replace(/[^a-zA-Z0-9\-_]/g, '')
       const fullPath = path.join(postsDirectory, fileName)
+      const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data, content } = parseFrontmatter(fileContents)
 
       return {
