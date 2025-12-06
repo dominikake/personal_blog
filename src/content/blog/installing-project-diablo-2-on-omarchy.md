@@ -1,7 +1,9 @@
 ---
-title: "Installing Project Diablo 2 on Omarchy"
+title: Installing Project Diablo 2 on Omarchy
 date: "2025-12-05"
-excerpt: "The struggle was real - multiple failed attempts to install Project Diablo 2 on Omarchy, but Lutris finally saved the day."
+excerpt: >-
+  The struggle was real - multiple failed attempts to install Project Diablo 2
+  on Omarchy, but Lutr...
 ---
 
 # Installing Project Diablo 2 on Omarchy
