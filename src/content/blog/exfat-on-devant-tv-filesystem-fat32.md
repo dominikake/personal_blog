@@ -1,7 +1,7 @@
 ---
 title: "exFat on Devant TV: filesystem FAT32"
 date: "2025-11-29"
-excerpt: "How easy would it be to just just copy a movie to a USB stick and plug it in to the TV. Not easy the first try."
+excerpt: "How easy would it be to just copy a movie to a USB stick and plug it in to the TV."
 ---
 
 # exFat on Devant TV: filesystem FAT32

@@ -1,7 +1,7 @@
 ---
-title: "Building a Minimal Blog with Next.js"
+title: Building a Minimal Blog with Next.js
 date: "2025-01-21"
-excerpt: "How I created this simple blog using Next.js App Router and markdown files."
+excerpt: How I created this simple blog using Next.
 ---
 
 # Building a Minimal Blog with Next.js
