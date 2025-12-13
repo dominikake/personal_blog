@@ -31,23 +31,61 @@ function parseFrontmatter(content: string) {
     excerpt: ''
   }
 
-  frontmatterStr.split('\n').forEach(line => {
+  const lines = frontmatterStr.split('\n')
+  let i = 0
+  
+  while (i < lines.length) {
+    const line = lines[i]
     const colonIndex = line.indexOf(':')
+    
     if (colonIndex > 0) {
       const key = line.slice(0, colonIndex).trim()
       let value = line.slice(colonIndex + 1).trim()
       
-      // Remove quotes if present
-      if ((value.startsWith('"') && value.endsWith('"')) || 
-          (value.startsWith("'") && value.endsWith("'"))) {
-        value = value.slice(1, -1)
+      // Handle YAML folded scalars (>-) and block scalars (|)
+      if (value === '>-' || value === '|') {
+        i++ // Move to the next line
+        const foldedLines: string[] = []
+        
+        // Collect all indented lines until we hit a line with same or less indentation
+        while (i < lines.length) {
+          const currentLine = lines[i]
+          if (currentLine.trim() === '') {
+            foldedLines.push('') // Preserve empty lines for >-
+            i++
+          } else if (currentLine.startsWith('  ') || currentLine.startsWith('\t')) {
+            // Remove the indentation (2 spaces or 1 tab)
+            foldedLines.push(currentLine.replace(/^( {2}|\t)/, ''))
+            i++
+          } else {
+            break // End of folded block
+          }
+        }
+        
+        // Join the lines appropriately
+        if (value === '>-') {
+          // Folded scalar: join lines with spaces, remove trailing whitespace
+          value = foldedLines.join(' ').replace(/\s+/g, ' ').trim()
+        } else {
+          // Block scalar: preserve newlines
+          value = foldedLines.join('\n').trim()
+        }
+      } else {
+        // Remove quotes if present
+        if ((value.startsWith('"') && value.endsWith('"')) || 
+            (value.startsWith("'") && value.endsWith("'"))) {
+          value = value.slice(1, -1)
+        }
+        i++
       }
       
       if (key === 'title') data.title = value
       if (key === 'date') data.date = value
       if (key === 'excerpt') data.excerpt = value
+    } else {
+      i++
     }
-  })
+  }
 
   return { data, content: markdownContent }
 }
