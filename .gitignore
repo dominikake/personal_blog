@@ -42,3 +42,6 @@ next-env.d.ts
 
 # upgrade docs
 UPGRADE_RECOMMENDATIONS.md
+
+# opencode
+.opencode/

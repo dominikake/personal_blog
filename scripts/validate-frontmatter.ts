@@ -44,7 +44,7 @@ function getFileModDate(filePath: string): string {
 }
 
 // Parse frontmatter from markdown content
-function parseFrontmatter(content: string): { data: any, content: string } {
+function parseFrontmatter(content: string): { data: Record<string, unknown>, content: string } {
   const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/
   const match = content.match(frontmatterRegex)
   
