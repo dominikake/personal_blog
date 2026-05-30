@@ -1,7 +1,6 @@
-import BlinkingCursor from "@/components/BlinkingCursor"
-import Links from "@/components/Links"
 import site from "@/content/site.json"
 import { getAllBlogPosts } from "@/lib/blog"
+import Terminal from "@/components/Terminal"
 import styles from "./page.module.css"
 
 export default function Home() {
@@ -12,21 +11,16 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>
-            jan go
-            <BlinkingCursor />
-          </h1>
+        <section className={styles.hero}>
+          <Terminal />
+        </section>
 
+        <footer className={styles.footer}>
           <p className={styles.interests}>
             <span className={styles.interestsLabel}>into:</span> {interests}
           </p>
           <p className={styles.updated}>updated {latestDate}</p>
-
-          <div className={styles.links}>
-            <Links />
-          </div>
-        </header>
+        </footer>
       </div>
     </main>
   )
