@@ -46,7 +46,7 @@ export default function Terminal({ onQuit }: TerminalProps) {
       { type: "output", content: "  banner       - Show banner" },
       { type: "output", content: "  neofetch     - System info" },
       { type: "output", content: "  clear        - Clear terminal" },
-      { type: "output", content: "  quit         - Exit terminal" },
+      { type: "output", content: "  exit, quit   - Exit terminal" },
       { type: "output", content: "  sudo         - Try it ;)" },
     ],
 
@@ -114,6 +114,11 @@ export default function Terminal({ onQuit }: TerminalProps) {
       return [{ type: "system", content: "Logging out... Goodbye." }]
     },
 
+    exit: () => {
+      onQuit?.()
+      return [{ type: "system", content: "Logging out... Goodbye." }]
+    },
+
     sudo: () => [
       { type: "output", content: "Nice try ;)" },
       { type: "system", content: "Event logged. Carry on." },
@@ -129,7 +134,9 @@ export default function Terminal({ onQuit }: TerminalProps) {
     const args = parts.slice(1)
     const lowerCmd = cmdName.toLowerCase()
 
-    if (lowerCmd in commands) {
+    if (lowerCmd === "clear") {
+      setLines([])
+    } else if (lowerCmd in commands) {
       const output = commands[lowerCmd](args)
       setLines((prev) => [...prev, { type: "input", content: `$ ${cmd}` }, ...output])
     } else {
