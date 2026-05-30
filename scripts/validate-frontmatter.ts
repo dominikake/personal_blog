@@ -8,7 +8,8 @@ import { z } from 'zod'
 const frontmatterSchema = z.object({
   title: z.string().min(1, "Title is required"),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be YYYY-MM-DD format"),
-  excerpt: z.string().min(1, "Excerpt is required").max(100, "Excerpt must be 100 characters or less")
+  excerpt: z.string().min(1, "Excerpt is required").max(100, "Excerpt must be 100 characters or less"),
+  type: z.enum(["note", "tutorial"]).optional(),
 })
 
 // Helper function to sanitize title to filename
@@ -55,7 +56,11 @@ function parseFrontmatter(content: string): { data: Record<string, unknown>, con
   try {
     const frontmatterStr = match[1]
     const markdownContent = match[2].trim()
-    const data = yaml.load(frontmatterStr)
+    const loaded = yaml.load(frontmatterStr)
+    const data =
+      loaded && typeof loaded === "object" && !Array.isArray(loaded)
+        ? (loaded as Record<string, unknown>)
+        : {}
     return { data, content: markdownContent }
   } catch (error) {
     console.error(`Error parsing YAML frontmatter: ${error}`)
@@ -75,6 +80,12 @@ function validateFile(filePath: string): { valid: boolean, fixed: boolean, error
     const fileContent = fs.readFileSync(filePath, 'utf8')
     const { data, content } = parseFrontmatter(fileContent)
     const fileName = path.basename(filePath, '.md')
+    const fm = data as Record<string, unknown> & {
+      title?: unknown
+      date?: unknown
+      excerpt?: unknown
+      type?: unknown
+    }
 
     // Check if frontmatter exists
     if (Object.keys(data).length === 0) {
@@ -94,31 +105,31 @@ function validateFile(filePath: string): { valid: boolean, fixed: boolean, error
     }
 
     // Check filename-title consistency
-    if (data.title) {
-      const expectedFilename = sanitizeTitleToFilename(data.title)
+    if (typeof fm.title === "string" && fm.title.length > 0) {
+      const expectedFilename = sanitizeTitleToFilename(fm.title)
       if (expectedFilename !== fileName) {
-        errors.push(`${fileName}.md: Filename should be "${expectedFilename}.md" based on title "${data.title}"`)
+        errors.push(`${fileName}.md: Filename should be "${expectedFilename}.md" based on title "${fm.title}"`)
         valid = false
         // Note: File renaming disabled for now to prevent duplicates
       }
     }
 
     // Check excerpt length and sentence structure
-    if (data.excerpt) {
+    if (typeof fm.excerpt === "string" && fm.excerpt.length > 0) {
       let excerptFixed = false
       
-      if (data.excerpt.length > 100) {
-        const truncated = truncateToOneSentence(data.excerpt)
-        if (truncated !== data.excerpt) {
-          data.excerpt = truncated
+      if (fm.excerpt.length > 100) {
+        const truncated = truncateToOneSentence(fm.excerpt)
+        if (truncated !== fm.excerpt) {
+          fm.excerpt = truncated
           excerptFixed = true
         }
       }
       
-      if (!isOneSentence(data.excerpt)) {
-        const truncated = truncateToOneSentence(data.excerpt)
-        if (truncated !== data.excerpt) {
-          data.excerpt = truncated
+      if (typeof fm.excerpt === "string" && !isOneSentence(fm.excerpt)) {
+        const truncated = truncateToOneSentence(fm.excerpt)
+        if (truncated !== fm.excerpt) {
+          fm.excerpt = truncated
           excerptFixed = true
         }
       }
@@ -130,15 +141,15 @@ function validateFile(filePath: string): { valid: boolean, fixed: boolean, error
     }
 
     // Auto-fix missing date
-    if (!data.date) {
-      data.date = getFileModDate(filePath)
-      fixes.push(`Added missing date to ${fileName}.md: ${data.date}`)
+    if (typeof fm.date !== "string" || fm.date.length === 0) {
+      fm.date = getFileModDate(filePath)
+      fixes.push(`Added missing date to ${fileName}.md: ${fm.date}`)
       fixed = true
     }
 
     // Write fixed content back to file
     if (fixed) {
-      const yamlStr = yaml.dump(data, { 
+      const yamlStr = yaml.dump(fm, { 
         indent: 2, 
         lineWidth: 0,
         noRefs: true,

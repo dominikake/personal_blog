@@ -4,7 +4,8 @@
     display: inline-block; /* Ensure the cursor occupies consistent space */
     width: 0.5em; /* Match the width of the underscore */
     text-align: left; /* Align the cursor to the left */
-    color: #e0def4; /* Pine color */
+    color: var(--text);
+    opacity: 0.9;
   }
   
   @keyframes blink {

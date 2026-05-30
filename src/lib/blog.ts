@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import yaml from 'js-yaml'
 
 const postsDirectory = path.join(process.cwd(), 'src/content/blog')
 
@@ -8,6 +9,7 @@ export interface BlogPost {
   title: string
   date: string
   excerpt: string
+  type?: string
   content: string
 }
 
@@ -17,7 +19,7 @@ function parseFrontmatter(content: string) {
   
   if (!match) {
     return {
-      data: { title: '', date: '', excerpt: '' },
+      data: { title: '', date: '', excerpt: '', type: undefined as string | undefined },
       content: content.trim()
     }
   }
@@ -25,66 +27,19 @@ function parseFrontmatter(content: string) {
   const frontmatterStr = match[1]
   const markdownContent = match[2].trim()
   
-  const data: { title: string; date: string; excerpt: string } = {
-    title: '',
-    date: '',
-    excerpt: ''
-  }
-
-  const lines = frontmatterStr.split('\n')
-  let i = 0
-  
-  while (i < lines.length) {
-    const line = lines[i]
-    const colonIndex = line.indexOf(':')
-    
-    if (colonIndex > 0) {
-      const key = line.slice(0, colonIndex).trim()
-      let value = line.slice(colonIndex + 1).trim()
-      
-      // Handle YAML folded scalars (>-) and block scalars (|)
-      if (value === '>-' || value === '|') {
-        i++ // Move to the next line
-        const foldedLines: string[] = []
-        
-        // Collect all indented lines until we hit a line with same or less indentation
-        while (i < lines.length) {
-          const currentLine = lines[i]
-          if (currentLine.trim() === '') {
-            foldedLines.push('') // Preserve empty lines for >-
-            i++
-          } else if (currentLine.startsWith('  ') || currentLine.startsWith('\t')) {
-            // Remove the indentation (2 spaces or 1 tab)
-            foldedLines.push(currentLine.replace(/^( {2}|\t)/, ''))
-            i++
-          } else {
-            break // End of folded block
-          }
-        }
-        
-        // Join the lines appropriately
-        if (value === '>-') {
-          // Folded scalar: join lines with spaces, remove trailing whitespace
-          value = foldedLines.join(' ').replace(/\s+/g, ' ').trim()
-        } else {
-          // Block scalar: preserve newlines
-          value = foldedLines.join('\n').trim()
-        }
-      } else {
-        // Remove quotes if present
-        if ((value.startsWith('"') && value.endsWith('"')) || 
-            (value.startsWith("'") && value.endsWith("'"))) {
-          value = value.slice(1, -1)
-        }
-        i++
-      }
-      
-      if (key === 'title') data.title = value
-      if (key === 'date') data.date = value
-      if (key === 'excerpt') data.excerpt = value
-    } else {
-      i++
+  let parsed: Record<string, unknown> = {}
+  try {
+    const loaded = yaml.load(frontmatterStr)
+    if (loaded && typeof loaded === 'object' && !Array.isArray(loaded)) {
+      parsed = loaded as Record<string, unknown>
     }
+  } catch {}
+
+  const data = {
+    title: typeof parsed.title === 'string' ? parsed.title : '',
+    date: typeof parsed.date === 'string' ? parsed.date : '',
+    excerpt: typeof parsed.excerpt === 'string' ? parsed.excerpt : '',
+    type: typeof parsed.type === 'string' ? parsed.type : undefined,
   }
 
   return { data, content: markdownContent }
@@ -111,6 +66,7 @@ export function getAllBlogPosts(): BlogPost[] {
         title: data.title,
         date: data.date,
         excerpt: data.excerpt,
+        type: data.type,
         content,
       }
     })
@@ -137,6 +93,7 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
       title: data.title,
       date: data.date,
       excerpt: data.excerpt,
+      type: data.type,
       content,
     }
   } catch {

@@ -4,13 +4,16 @@
   }
   
   .links a {
-    color: #e0def4; /* Pine color */
+    color: var(--text);
     text-decoration: none;
     font-size: 1.2rem;
+    opacity: 0.9;
+    transition: opacity 0.2s ease, color 0.2s ease;
   }
   
   .links a:hover {
-    text-decoration: underline;
+    opacity: 1;
+    color: var(--pine);
   }
   
-  
+ 
