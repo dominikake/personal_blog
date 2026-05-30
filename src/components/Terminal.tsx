@@ -5,12 +5,16 @@ import { useRouter } from "next/navigation"
 import site from "@/content/site.json"
 import styles from "./Terminal.module.css"
 
-interface TerminalLine {
+export interface TerminalLine {
   type: "input" | "output" | "system"
   content: string
 }
 
-export default function Terminal() {
+interface TerminalProps {
+  onQuit?: () => void
+}
+
+export default function Terminal({ onQuit }: TerminalProps) {
   const [lines, setLines] = useState<TerminalLine[]>([
     { type: "system", content: "Welcome to jan go's terminal. Type 'help' for available commands." },
   ])
@@ -42,6 +46,7 @@ export default function Terminal() {
       { type: "output", content: "  banner       - Show banner" },
       { type: "output", content: "  neofetch     - System info" },
       { type: "output", content: "  clear        - Clear terminal" },
+      { type: "output", content: "  quit         - Exit terminal" },
       { type: "output", content: "  sudo         - Try it ;)" },
     ],
 
@@ -103,6 +108,11 @@ export default function Terminal() {
       { type: "output", content: `  Interests: ${site.interests.join(", ")}` },
       { type: "output", content: `  Tagline:   ${site.tagline}` },
     ],
+
+    quit: () => {
+      onQuit?.()
+      return [{ type: "system", content: "Logging out... Goodbye." }]
+    },
 
     sudo: () => [
       { type: "output", content: "Nice try ;)" },
