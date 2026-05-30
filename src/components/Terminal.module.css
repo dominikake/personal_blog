@@ -51,7 +51,8 @@
 
 .body {
   padding: 1rem 1.25rem;
-  max-height: 70vh;
+  min-height: 50vh;
+  max-height: 80vh;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(224, 222, 244, 0.15) transparent;

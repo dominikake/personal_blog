@@ -26,6 +26,10 @@ export default function Terminal({ onQuit }: TerminalProps) {
   const router = useRouter()
 
   useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
+  useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [lines])
 
