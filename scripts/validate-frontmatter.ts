@@ -153,7 +153,7 @@ function validateFile(filePath: string): { valid: boolean, fixed: boolean, error
         indent: 2, 
         lineWidth: 0,
         noRefs: true,
-        quotingType: '"'
+        quoteStyle: 'double'
       })
       const targetPath = newFilePath || filePath
       const newContent = `---\n${yamlStr}---\n\n${content}`

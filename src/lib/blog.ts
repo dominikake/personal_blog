@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import yaml from 'js-yaml'
+import * as yaml from 'js-yaml'
 
 const postsDirectory = path.join(process.cwd(), 'src/content/blog')
 
