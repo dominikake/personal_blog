@@ -5,9 +5,7 @@
       "enabled": true,
       "type": "remote",
       "url": "https://api.githubcopilot.com/mcp/",
-      "headers": {
-        "Authorization": "Bearer {env:GITHUB_TOKEN}"
-      }
+      "oauth": true
     },
     "context7": {
       "enabled": true,
