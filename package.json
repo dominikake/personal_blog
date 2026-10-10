@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "bun run validate:frontmatter && next build",
     "start": "next start",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings 0",
     "test": "jest",
     "test:watch": "jest --watch",
     "validate:frontmatter": "bun run scripts/validate-frontmatter.ts"
