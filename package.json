@@ -16,7 +16,7 @@
     "js-yaml": "5.4.3",
     "minimatch": "10.2.6",
     "next": "16.4.0",
-    "react": "19.3.0",
+    "react": "19.3.1",
     "react-dom": "19.3.0",
     "react-markdown": "10.1.0"
   },
